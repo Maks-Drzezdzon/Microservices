@@ -1,17 +1,14 @@
 package com.example.moviecatalogservice.models;
 
-public class CatalogItem {
+public class Rating {
 	private String name;
-	private String desc;
 	private int rating;
 	
-	public CatalogItem() {}
+	public Rating() {}
 	
-	
-	public CatalogItem(String name, String desc, int rating) {
+	public Rating(String name, int rating) {
 		super();
 		this.name = name;
-		this.desc = desc;
 		this.rating = rating;
 	}
 	public String getName() {
@@ -19,12 +16,6 @@ public class CatalogItem {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public String getDesc() {
-		return desc;
-	}
-	public void setDesc(String desc) {
-		this.desc = desc;
 	}
 	public int getRating() {
 		return rating;
