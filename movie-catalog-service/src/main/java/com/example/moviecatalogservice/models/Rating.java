@@ -1,22 +1,26 @@
 package com.example.moviecatalogservice.models;
 
 public class Rating {
-	private String name;
+	private String movieId;
 	private int rating;
 	
 	public Rating() {}
 	
 	public Rating(String name, int rating) {
 		super();
-		this.name = name;
+		this.movieId = name;
 		this.rating = rating;
 	}
-	public String getName() {
-		return name;
+	
+
+	public String getMovieId() {
+		return movieId;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public void setMovieId(String movieId) {
+		this.movieId = movieId;
 	}
+
 	public int getRating() {
 		return rating;
 	}
