@@ -5,7 +5,7 @@ public class CatalogItem {
 	private String desc;
 	private int rating;
 	
-	
+	public CatalogItem() {}
 	
 	
 	public CatalogItem(String name, String desc, int rating) {
