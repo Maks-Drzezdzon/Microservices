@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,9 @@ public class MovieCatalogResource {
 	
 	@Autowired
 	private RestTemplate restTemplate;
+	
+	@Autowired
+	private DiscoveryClient discoveryClient; // look at this later
 	
 	/*
 	@Autowired
@@ -36,7 +40,7 @@ public class MovieCatalogResource {
 		 * binds data to method in this case it binds json data to model
 		 */
 		
-		// dont hard code urls, find out how to not do that later
+		// dont hard code urls
 		UserRating ratings = restTemplate.getForObject("http://rating-data-service/ratingsdata/users/" + userId, UserRating.class);
 		
 		// now unwrap it with stream

@@ -14,6 +14,7 @@ public class MovieCatalogServiceApplication {
 	
 	@Bean
 	@LoadBalanced
+	// will look for service name in app.properties fill in url
 	public RestTemplate getRestTemplte() {
 		return new RestTemplate();
 	}
