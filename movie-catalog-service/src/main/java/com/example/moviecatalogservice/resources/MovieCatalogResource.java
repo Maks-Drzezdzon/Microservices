@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,9 @@ public class MovieCatalogResource {
 	
 	@Autowired
 	private RestTemplate restTemplate;
+	
+	@Autowired
+	private DiscoveryClient discoveryClient; // look at this later
 	
 	/*
 	@Autowired
@@ -36,8 +40,8 @@ public class MovieCatalogResource {
 		 * binds data to method in this case it binds json data to model
 		 */
 		
-		// dont hard code urls, find out how to not do that later
-		UserRating ratings = restTemplate.getForObject("http://localhost:8083/ratingsdata/users/" + userId, UserRating.class);
+		// dont hard code urls
+		UserRating ratings = restTemplate.getForObject("http://rating-data-service/ratingsdata/users/" + userId, UserRating.class);
 		
 		// now unwrap it with stream
 		return ratings.getUserRating().stream().map(rating -> {
@@ -46,7 +50,7 @@ public class MovieCatalogResource {
 			 * if you want to make it async you need to make everythin async
 			 */
 			// this is removed when using builder, used with restTempalte
-			Movie movie = restTemplate.getForObject("http://localhost:8082/movies/" + rating.getMovieId(), Movie.class);
+			Movie movie = restTemplate.getForObject("http://movie-info-service/movies/" + rating.getMovieId(), Movie.class);
 				
 			return new CatalogItem(movie.getName(), "This is a show with 1 season", rating.getRating());
 		
