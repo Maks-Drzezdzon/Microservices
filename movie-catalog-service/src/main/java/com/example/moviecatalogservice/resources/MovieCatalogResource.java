@@ -35,7 +35,8 @@ public class MovieCatalogResource {
 		 * this works the same way as @RequestBody in spring api
 		 * binds data to method in this case it binds json data to model
 		 */
-	
+		
+		// dont hard code urls, find out how to not do that later
 		UserRating ratings = restTemplate.getForObject("http://localhost:8083/ratingsdata/users/" + userId, UserRating.class);
 		
 		// now unwrap it with stream
