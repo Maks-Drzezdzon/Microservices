@@ -37,7 +37,7 @@ public class MovieCatalogResource {
 		 */
 		
 		// dont hard code urls, find out how to not do that later
-		UserRating ratings = restTemplate.getForObject("http://localhost:8083/ratingsdata/users/" + userId, UserRating.class);
+		UserRating ratings = restTemplate.getForObject("http://rating-data-service/ratingsdata/users/" + userId, UserRating.class);
 		
 		// now unwrap it with stream
 		return ratings.getUserRating().stream().map(rating -> {
@@ -46,7 +46,7 @@ public class MovieCatalogResource {
 			 * if you want to make it async you need to make everythin async
 			 */
 			// this is removed when using builder, used with restTempalte
-			Movie movie = restTemplate.getForObject("http://localhost:8082/movies/" + rating.getMovieId(), Movie.class);
+			Movie movie = restTemplate.getForObject("http://movie-info-service/movies/" + rating.getMovieId(), Movie.class);
 				
 			return new CatalogItem(movie.getName(), "This is a show with 1 season", rating.getRating());
 		
