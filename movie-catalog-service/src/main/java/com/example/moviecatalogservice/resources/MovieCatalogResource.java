@@ -3,7 +3,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import com.example.moviecatalogservice.models.CatalogItem;
 import com.example.moviecatalogservice.models.Movie;
 import com.example.moviecatalogservice.models.UserRating;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 @RestController
 @RequestMapping("/catalog")
@@ -20,14 +20,15 @@ public class MovieCatalogResource {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	@Autowired
-	private DiscoveryClient discoveryClient; // look at this later
+	/*@Autowired
+	private DiscoveryClient discoveryClient; // look at this later*/
 	
 	/*
 	@Autowired
 	private WebClient.Builder webClientBuilder;*/
 	
 	@RequestMapping("/{userId}")
+	@HystrixCommand(fallbackMethod ="getFallbackCatalog") //if limit is reached call x method
 	public List<CatalogItem> getCatalog(@PathVariable("userId") String userId){
 		
 		/*
@@ -57,7 +58,7 @@ public class MovieCatalogResource {
 		}).collect(Collectors.toList());
 
 	}
-
+	
 }
 
 
