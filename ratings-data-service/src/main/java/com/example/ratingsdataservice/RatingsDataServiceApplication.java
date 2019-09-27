@@ -7,7 +7,6 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @EnableEurekaClient
 @SpringBootApplication
-@EnableCircuitBreaker
 public class RatingsDataServiceApplication {
 
 	public static void main(String[] args) {

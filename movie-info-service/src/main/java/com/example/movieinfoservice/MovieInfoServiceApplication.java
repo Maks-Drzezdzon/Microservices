@@ -10,7 +10,6 @@ import org.springframework.web.client.RestTemplate;
 
 @EnableEurekaClient
 @SpringBootApplication
-@EnableCircuitBreaker
 public class MovieInfoServiceApplication {
 
 	public static void main(String[] args) {

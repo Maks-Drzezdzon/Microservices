@@ -58,7 +58,7 @@ public class MovieCatalogResource {
 		}).collect(Collectors.toList());
 
 	}
-
+	
 }
 
 
