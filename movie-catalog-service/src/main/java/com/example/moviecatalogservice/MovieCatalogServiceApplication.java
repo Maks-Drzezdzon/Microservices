@@ -23,11 +23,11 @@ public class MovieCatalogServiceApplication {
 	// will look for service name in app.properties fill in url
 	public RestTemplate getRestTemplte() {
 		// setting connection timeouts 
-		//return new RestTemplate();
+		return new RestTemplate();
 		
-		HttpComponentsClientHttpRequestFactory clientHttpsRequestFactory = new HttpComponentsClientHttpRequestFactory();
+		/*HttpComponentsClientHttpRequestFactory clientHttpsRequestFactory = new HttpComponentsClientHttpRequestFactory();
 		clientHttpsRequestFactory.setConnectionRequestTimeout(3000);
-		return new RestTemplate(clientHttpsRequestFactory);
+		return new RestTemplate(clientHttpsRequestFactory);*/
 	}
 	
 	@Bean

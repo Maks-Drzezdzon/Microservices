@@ -9,7 +9,6 @@ public class Movie {
 
 	
 	public Movie(String movieId, String name, String description) {
-		super();
 		this.movieId = movieId;
 		this.name = name;
 		this.description = description;
@@ -31,12 +30,6 @@ public class Movie {
 	}
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	
-	
-	
-
-	
-	
+	}	
 
 }

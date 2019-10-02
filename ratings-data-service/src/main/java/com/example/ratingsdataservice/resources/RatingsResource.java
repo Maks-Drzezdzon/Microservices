@@ -15,22 +15,17 @@ import com.example.ratingsdataservice.models.UserRating;
 public class RatingsResource {
 	
 	@RequestMapping("/{movieId}")
-	public Rating getRating(@PathVariable("movieId") String movieId) {
-		return new Rating(movieId, 4);
+	public Rating getMoiveRating(@PathVariable("movieId") String movieId) {
+		return new Rating(movieId, 1);
 	}
 	
 	@RequestMapping("users/{userId}")
 	public UserRating getUserRating(@PathVariable("userId") String userId) {
-		List<Rating> ratings = Arrays.asList(
-				new Rating("100",3),
-				new Rating("200",4),
-				new Rating("3",1)
-				);
 		/*
 		 * wrap data in object to make api more backward compatible 
 		 */
 		UserRating userRating = new UserRating();
-		userRating.setUserRating(ratings);
+		userRating.initData(userId);
 		return userRating;
 	}
 	

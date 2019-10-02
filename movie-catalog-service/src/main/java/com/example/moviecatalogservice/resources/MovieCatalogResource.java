@@ -28,7 +28,7 @@ public class MovieCatalogResource {
 	private WebClient.Builder webClientBuilder;*/
 	
 	@RequestMapping("/{userId}")
-	@HystrixCommand(fallbackMethod ="getFallbackCatalog") //if limit is reached call x method
+	//@HystrixCommand(fallbackMethod ="getFallbackCatalog") //if limit is reached call x method
 	public List<CatalogItem> getCatalog(@PathVariable("userId") String userId){
 		
 		/*
