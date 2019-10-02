@@ -16,43 +16,26 @@ import com.example.moviecatalogservice.models.UserRating;
 @RestController
 @RequestMapping("/catalog")
 public class MovieCatalogResource {
-	
-	@Autowired
-	private RestTemplate restTemplate;
-	
-	/*@Autowired
-	private DiscoveryClient discoveryClient; // look at this later*/
-	
-	
-	@Autowired
-	private WebClient.Builder webClientBuilder;
-	
-	@RequestMapping("/{userId}")
-	//@HystrixCommand(fallbackMethod ="getFallbackCatalog") //if limit is reached call x method
-	public List<CatalogItem> getCatalog(@PathVariable("userId") String userId){		
-		/*
-		 * similar to restTemplate with builder
-		 */
-		//WebClient.Builder builder = WebClient.builder();	
-		/*
-		 * this works the same way as @RequestBody in spring api
-		 * binds data to method in this case it binds json data to model
-		 */	
-		// dont hard code urls
-		UserRating ratings = restTemplate.getForObject("http://rating-data-service/ratingsdata/users/" + userId, UserRating.class);	
-		// now unwrap it with stream
-		return ratings.getRatings().stream().map(rating -> {
-			/*
-			 * this is synchronous
-			 * if you want to make it async you need to make everythin async
-			 */
-			// this is removed when using builder, used with restTempalte
-			Movie movie = restTemplate.getForObject("http://movie-info-service/movies/" + rating.getMovieId(), Movie.class);				
-			return new CatalogItem(movie.getName(), "This is a show with 1 season", rating.getRating());		
-		}).collect(Collectors.toList());
 
-	}
-	
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Autowired
+    WebClient.Builder webClientBuilder;
+
+    @RequestMapping("/{userId}")
+    public List<CatalogItem> getCatalog(@PathVariable("userId") String userId) {
+
+        UserRating userRating = restTemplate.getForObject("http://ratings-data-service/ratingsdata/user/" + userId, UserRating.class);
+
+        return userRating.getRatings().stream()
+                .map(rating -> {
+                    Movie movie = restTemplate.getForObject("http://movie-info-service/movies/" + rating.getMovieId(), Movie.class);
+                    return new CatalogItem(movie.getName(), movie.getDescription(), rating.getRating());
+                })
+                .collect(Collectors.toList());
+
+    }
 }
 
 // this is what RestTemplate is being replaced with in the coming future
