@@ -12,7 +12,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 import com.example.moviecatalogservice.models.CatalogItem;
 import com.example.moviecatalogservice.models.Movie;
 import com.example.moviecatalogservice.models.UserRating;
-
 @RestController
 @RequestMapping("/catalog")
 public class MovieCatalogResource {
