@@ -2,20 +2,17 @@ package com.example.moviecatalogservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
 
 @EnableEurekaClient
 @SpringBootApplication
-@EnableCircuitBreaker
-@EnableHystrixDashboard
+//@EnableCircuitBreaker
+//@EnableHystrixDashboard
 public class MovieCatalogServiceApplication {
 	
 	@Bean
@@ -23,11 +20,11 @@ public class MovieCatalogServiceApplication {
 	// will look for service name in app.properties fill in url
 	public RestTemplate getRestTemplte() {
 		// setting connection timeouts 
-		//return new RestTemplate();
+		return new RestTemplate();
 		
-		HttpComponentsClientHttpRequestFactory clientHttpsRequestFactory = new HttpComponentsClientHttpRequestFactory();
+		/*HttpComponentsClientHttpRequestFactory clientHttpsRequestFactory = new HttpComponentsClientHttpRequestFactory();
 		clientHttpsRequestFactory.setConnectionRequestTimeout(3000);
-		return new RestTemplate(clientHttpsRequestFactory);
+		return new RestTemplate(clientHttpsRequestFactory);*/
 	}
 	
 	@Bean
