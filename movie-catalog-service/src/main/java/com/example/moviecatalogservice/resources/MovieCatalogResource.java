@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import com.example.moviecatalogservice.models.CatalogItem;
 import com.example.moviecatalogservice.models.Movie;
 import com.example.moviecatalogservice.models.UserRating;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 @RestController
 @RequestMapping("/catalog")
@@ -23,45 +23,37 @@ public class MovieCatalogResource {
 	/*@Autowired
 	private DiscoveryClient discoveryClient; // look at this later*/
 	
-	/*
+	
 	@Autowired
-	private WebClient.Builder webClientBuilder;*/
+	private WebClient.Builder webClientBuilder;
 	
 	@RequestMapping("/{userId}")
 	//@HystrixCommand(fallbackMethod ="getFallbackCatalog") //if limit is reached call x method
-	public List<CatalogItem> getCatalog(@PathVariable("userId") String userId){
-		
+	public List<CatalogItem> getCatalog(@PathVariable("userId") String userId){		
 		/*
 		 * similar to restTemplate with builder
 		 */
-		//WebClient.Builder builder = WebClient.builder();
-		
+		//WebClient.Builder builder = WebClient.builder();	
 		/*
 		 * this works the same way as @RequestBody in spring api
 		 * binds data to method in this case it binds json data to model
-		 */
-		
+		 */	
 		// dont hard code urls
-		UserRating ratings = restTemplate.getForObject("http://rating-data-service/ratingsdata/users/" + userId, UserRating.class);
-		
+		UserRating ratings = restTemplate.getForObject("http://rating-data-service/ratingsdata/users/" + userId, UserRating.class);	
 		// now unwrap it with stream
-		return ratings.getUserRating().stream().map(rating -> {
+		return ratings.getRatings().stream().map(rating -> {
 			/*
 			 * this is synchronous
 			 * if you want to make it async you need to make everythin async
 			 */
 			// this is removed when using builder, used with restTempalte
-			Movie movie = restTemplate.getForObject("http://movie-info-service/movies/" + rating.getMovieId(), Movie.class);
-				
-			return new CatalogItem(movie.getName(), "This is a show with 1 season", rating.getRating());
-		
+			Movie movie = restTemplate.getForObject("http://movie-info-service/movies/" + rating.getMovieId(), Movie.class);				
+			return new CatalogItem(movie.getName(), "This is a show with 1 season", rating.getRating());		
 		}).collect(Collectors.toList());
 
 	}
 	
 }
-
-
 
 // this is what RestTemplate is being replaced with in the coming future
 /*Movie movie = webClientBuilder.build()

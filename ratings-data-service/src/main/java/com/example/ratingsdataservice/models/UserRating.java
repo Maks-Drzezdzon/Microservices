@@ -16,14 +16,6 @@ public class UserRating {
     public void setUserId(String userId) {
         this.userId = userId;
     }
-    
-	public List<Rating> getUserRating() {
-		return ratings;
-	}
-
-	public void setUserRating(List<Rating> userRating) {
-		this.ratings = userRating;
-	}
 
     public List<Rating> getRatings() {
         return ratings;
