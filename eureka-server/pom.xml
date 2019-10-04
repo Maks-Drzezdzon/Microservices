@@ -107,7 +107,7 @@
 			
 			
 		</plugins>
-		<finalName>eureka-server-docker.jar</finalName>
+		<finalName>eureka-server-docker</finalName>
 	</build>
 
 </project>
