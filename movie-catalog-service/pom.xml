@@ -76,7 +76,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-	<finalName>File movie-catalog-service-docker.jar</finalName>	
+	<finalName>movie-catalog-service-docker</finalName>	
 	</build>
 	
 	
